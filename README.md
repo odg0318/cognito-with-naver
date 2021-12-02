@@ -57,10 +57,10 @@ $ docker build -t cognito-with-naver .
 빌드된 이미지와 네이버 어플리케이션 정보, Cognito 정보를 이용해 컨테이너를 실행한다. 설정을 위해 4가지 환경 변수가 이용된다.
 * NAVER_CLIENT_ID
 * NAVER_CLIENT_SECRET
-* COGNITO_UESR_POOL_ID
+* COGNITO_USER_POOL_ID
 * COGNITO_USER_POOL_CLIENT_ID
 ```shell
-$ docker run --rm -p 8080:8080 -e NAVER_CLIENT_ID=XXX -e NAVER_CLIENT_SECRET=XXX -e COGNITO_UESR_POOL_ID=XXX -e COGNITO_USER_POOL_CLIENT_ID=XXX cognito-with-naver
+$ docker run --rm -p 8080:8080 -e NAVER_CLIENT_ID=XXX -e NAVER_CLIENT_SECRET=XXX -e COGNITO_USER_POOL_ID=XXX -e COGNITO_USER_POOL_CLIENT_ID=XXX cognito-with-naver
 ```
  
 ## 웹 페이지 접속

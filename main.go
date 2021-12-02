@@ -22,7 +22,7 @@ const (
 
 var (
 	port             = 8080
-	userPoolId       = os.Getenv("COGNITO_UESR_POOL_ID")
+	userPoolId       = os.Getenv("COGNITO_USER_POOL_ID")
 	userPoolClientId = os.Getenv("COGNITO_USER_POOL_CLIENT_ID")
 	cognitoPassword  = "AwsCognito100$"
 	clientId         = os.Getenv("NAVER_CLIENT_ID")
