@@ -1,0 +1,123 @@
+<html>
+<head>
+  <title>Naver OAuth2: Callback</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#get-my-naver-info-button').on('click', function() {
+    var accessToken = $('#access-token').val()
+    var url = '/get-my-naver-info'
+
+    $.post(url, { 'access_token': accessToken }, function(data) {
+      $('#my-naver-info-text').val(JSON.stringify(data))
+    })
+  })
+
+  $('#check-user-exist-button').on('click', function() {
+    var accessToken = $('#access-token').val()
+    var url = '/check-user-exist'
+
+    $.post(url, { 'access_token': accessToken }, function(data) {
+      $('#integration-cognito-text').val(JSON.stringify(data))
+      $('#signup-cognito-button').attr('disabled', data.exist)
+      $('#signin-cognito-button').attr('disabled', !data.exist)
+    })
+  })
+
+  $('#signup-cognito-button').on('click', function() {
+    var accessToken = $('#access-token').val()
+    var url = '/signup'
+
+    $.post(url, { 'access_token': accessToken }, function(data) {
+      $('#integration-cognito-text').val(JSON.stringify(data))
+      $('#signin-cognito-button').attr('disabled', false)
+    })
+  })
+
+  $('#signin-cognito-button').on('click', function() {
+    var accessToken = $('#access-token').val()
+    var url = '/signin'
+
+    $.post(url, { 'access_token': accessToken }, function(data) {
+      $('#cognito-access-token').val(data.AccessToken)
+      $('#leave-cognito-button').attr('disabled', false)
+      $('#get-my-cognito-info-button').attr('disabled', false)
+    })
+  })
+
+  $('#leave-cognito-button').on('click', function() {
+    var accessToken = $('#cognito-access-token').val()
+    var url = '/leave'
+
+    $.post(url, { 'access_token': accessToken }, function(data) {
+      $('#integration-cognito-text').val(JSON.stringify(data))
+      $('#signup-cognito-button').attr('disabled', true)
+      $('#signin-cognito-button').attr('disabled', true)
+      $('#leave-cognito-button').attr('disabled', true)
+      $('#get-my-cognito-info-button').attr('disabled', true)
+    })
+  })
+
+  $('#get-my-cognito-info-button').on('click', function() {
+    var accessToken = $('#cognito-access-token').val()
+    var url = '/get-my-cognito-info'
+
+    $.post(url, { 'access_token': accessToken }, function(data) {
+      $('#my-cognito-info-text').val(JSON.stringify(data))
+    })
+  })
+})
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="container">
+      <h1 style="color:green;">Welcome to Naver OAuth2</h1>
+      <div class="mb-3">
+      </div>
+    </div>
+    <hr class="my-12"/>
+    <div class="container">
+      <h2>Get My Naver Information</h1>
+      <div class="mb-3">
+        <label for="access-token" class="form-label">Naver Access Token</label>
+        <input type="text" class="form-control" id="access-token" value="{{ .accessToken }}" />
+        <hr class="my-12"/>
+        <button type="button" class="btn btn-primary" id="get-my-naver-info-button">Get my information</button>
+      </div>
+      <div class="mb-3">
+        <label for="my-naver-info-text" class="form-label">Output</label>
+        <textarea class="form-control" id="my-naver-info-text" rows="2"></textarea>
+      </div>
+    </div>
+    <hr class="my-12"/>
+    <div class="container">
+      <h2>Integration with Cognito</h1>
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary" id="check-user-exist-button">Check user exists in Congnito</button>
+        <button type="button" class="btn btn-success" id="signup-cognito-button" disabled>Signup to Cognito</button>
+        <button type="button" class="btn btn-info" id="signin-cognito-button" disabled>Signin to Cognito</button>
+        <button type="button" class="btn btn-danger" id="leave-cognito-button" disabled>Leave from Cognito</button>
+      </div>
+      <div class="mb-3">
+        <label for="integration-cognito-text" class="form-label">Output</label>
+        <textarea class="form-control" id="integration-cognito-text" rows="1"></textarea>
+        <label for="access-token" class="form-label">Cognito Access Token</label>
+        <input type="text" class="form-control" id="cognito-access-token" />
+      </div>
+      <hr class="my-12"/>
+      <h2>Get My Cognito Information</h1>
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary" id="get-my-cognito-info-button" disabled>Get my information</button>
+      </div>
+      <div class="mb-3">
+        <label for="my-cognito-info-text" class="form-label">Output</label>
+        <textarea class="form-control" id="my-cognito-info-text" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
