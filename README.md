@@ -6,7 +6,7 @@ AWS Cognito와 네이버 로그인 연동 하는법을 설명한다. 이를 위�
 네이버 개발자 센터에 방문하여 로그인 연동에 필요한 어플리케이션을 생성하고 CLIENT_ID와 CLIENT_SECRET를 받아오도록한다.
 1. 네이버 개발자 센터 방문: https://developers.naver.com/main/
 2. 어플리케이션 관리 이동: https://developers.naver.com/apps/#/list
-3. 아래 값을 입력 할 때, http://localhost:8080 를 반드시 키지도록 한다.
+3. 아래 값을 입력 할 때, http://localhost:8080 를 반드시 지키도록 한다.
 ![](/img/naver-dev-app1.png)
 ![](/img/naver-dev-app2.png)
 
@@ -65,6 +65,7 @@ $ docker run --rm -p 8080:8080 -e NAVER_CLIENT_ID=XXX -e NAVER_CLIENT_SECRET=XXX
  
 ## 웹 페이지 접속
 웹 브라우저에서 http://localhost:8080 를 접속한다. `Login with Naver` 버튼을 클릭해 로그인이 제대로 동작하는지 확인한다.
+브라우저에 입력하는 주소가 네이버 개발자 센터에 입력한 http://localhost:8080 과 일치하는지 확인하도록 한다.
 ![](/img/localhost1.png)
 
 ## 네이버 정보 가져오기
